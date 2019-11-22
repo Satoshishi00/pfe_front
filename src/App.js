@@ -18,7 +18,6 @@ import MyRoute from "./components/MyRoute";
 import Connection from "./modules/Accounts/Connection";
 import Inscription from "modules/Accounts/Inscription";
 import Missing from "modules/Accounts/Missing";
-import Ajax from "modules/Ajax";
 import Home from "modules/Home";
 import Qcm from "modules/Qcm";
 import TakeQcm from "modules/TakeQcm";
@@ -37,7 +36,6 @@ const App = () => (
           <MyRoute path="/signin" component={Connection} />
           <MyRoute path="/signup" component={Inscription} />
           <MyRoute path="/missing_pwd" component={Missing}/>
-          <MyRoute path="/testAjax" component={Ajax}/>
           <MyRoute path="/home" component={Home} />
           <MyRoute path="/qcm/:id?" component={TakeQcm} />
           <MyRoute path="/qcmList" component={Qcm} />
