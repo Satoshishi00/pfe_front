@@ -159,6 +159,14 @@ input:focus {
     color: #E5E6E7;
 }
 
+.color-green {
+    color: #44bd32;
+}
+
+.color-red {
+    color: red;
+}
+
 .ct-input {
     font-size: 1em;
     width: 90%;
@@ -505,4 +513,18 @@ div.topbar-item-container .topbar-item {
     position: absolute;
     top: -3rem;
     right: 0rem;
+}
+
+.btn-link {
+    text-transform: uppercase;
+    text-decoration: none;
+    cursor: pointer;
+    border: 1px solid #4b4b4b;
+    width: 80%;
+    margin-left: 10%;
+    border-radius: 1rem;
+    background-color: #4b4b4b;
+    margin-top: 2.5rem;
+    color: white;
+    padding: 0.6rem 0rem;
 }
