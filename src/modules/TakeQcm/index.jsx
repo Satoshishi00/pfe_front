@@ -65,8 +65,7 @@ const TakeQcm = () => {
         <div key={question.id}>
           <p className="qcm-question">
             {question.question_response.charAt(0).toUpperCase() +
-              question.question_response.slice(1)}{" "}
-            ?
+              question.question_response.slice(1)}
           </p>
           {isResult && <p className="qcm-advice">{question.advice}</p>}
           <Loader
