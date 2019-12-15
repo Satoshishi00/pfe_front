@@ -113,7 +113,9 @@ const Profil = () => {
       method: "POST",
       headers: {
         id: cookies.brainer_id,
-        pepper: cookies.brainer_pepper
+        pepper: cookies.brainer_pepper,
+        security: "true",
+        Accept: "application/json; odata=verbose"
       }
     })
       .then(response => response.json())
@@ -129,7 +131,7 @@ const Profil = () => {
     } else {
       setCookie("user_username", data.username, { path: "/" });
       setUsername(data.username);
-      toast.success("Votre email a bien été modifié");
+      toast.success("Votre pseudo a bien été modifié");
       editUsername();
     }
     setLoading(false);

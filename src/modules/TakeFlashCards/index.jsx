@@ -1,6 +1,7 @@
 import React, { useState, useCallback, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Loader from "components/Loader";
+import { useCookies } from "react-cookie";
 
 import ButtonSuccess from "components/StyledButtons/ButtonSuccess";
 import ButtonDanger from "components/StyledButtons/ButtonDanger";
@@ -16,6 +17,12 @@ const TakeFlashCards = () => {
   const [upGreen, setUpGreen] = useState(0);
   const [downRed, setDownRed] = useState(0);
   const [clickIsActive, setClickIsActive] = useState(false);
+  const [infosResult, setInfosResult] = useState(new FormData());
+  const [cookies, setCookie] = useCookies([
+    "brainer_id",
+    "brainer_spepper",
+    "user_id"
+  ]);
 
   const buildList = useCallback(
     data => {
@@ -23,6 +30,9 @@ const TakeFlashCards = () => {
       if (typeof data.error !== "undefined" && data.error) {
         const error = data.error;
         console.log(error);
+      } else if (data.logout) {
+        console.log("On se déconnecte");
+        window.location.replace("http://localhost:3000/signin");
       } else if (data.finish) {
         setIsFinish(data.finish);
       } else {
@@ -99,6 +109,37 @@ const TakeFlashCards = () => {
     verso.toggle("img-back");
   };
 
+  const sendFcResponse = () => {
+    console.log("On envoie les réponses");
+    let test = new FormData();
+
+    test.append(
+      "nb_good_rep",
+      document.getElementsByClassName("points-green")[0].innerHTML
+    );
+    test.append("user_id", cookies.user_id);
+    console.log(test);
+    console.log("user_id", test.get("user_id"));
+    console.log("nb_good_rep", test.get("nb_good_rep"));
+
+    const curent_url = window.location.href;
+    const id_fc = curent_url.split("/")[4];
+    console.log("toto");
+    const URL =
+      "http://127.0.0.1:8000/flashCards/" +
+      id_fc +
+      "/getInformationsAfterAnswering";
+
+    fetch(URL, {
+      method: "POST",
+      body: test
+    })
+      .then(response => response.json())
+      .catch(error => console.log("error api fetch", error));
+
+    console.log("titi");
+  };
+
   if (!isFinish) {
     return (
       <div className="container">
@@ -135,6 +176,7 @@ const TakeFlashCards = () => {
       </div>
     );
   } else {
+    //sendFcResponse();
     return (
       <div className="container">
         <h2 className="center">Vous avez fini le jeu de cartes</h2>

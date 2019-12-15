@@ -4,7 +4,7 @@ const ButtonBlank = styled.button`
   padding-left: 0.25em;
   padding-top: 0.15em;
   background-color: white;
-  color: #4285f4;
+  color: #3578e5;
   :hover {
     cursor: pointer;
   }

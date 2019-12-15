@@ -1,5 +1,14 @@
 html {
     height: 100%;
+    --color-yellow: #f6b93b;
+    --color-brown: #333333;
+    --color-green: #6cb400;
+    --color-red: #ed4445;
+    --color-grey: #4b4b4b;
+    --color-blue: #3578E5;
+    --color-grey-light: #90949c;
+
+    font-family: "Roboto";
 }
 
 body {
@@ -10,6 +19,8 @@ body {
     height: 100%;
     display: flex;
     flex-direction: column;
+    font-family: 'Roboto',
+        sans-serif;
 }
 
 .relative {
@@ -137,7 +148,7 @@ input:focus {
 }
 
 .link {
-    color: #1cb0f6;
+    color: var(--color-blue);
     text-transform: uppercase;
     text-decoration: none;
     cursor: pointer;
@@ -152,19 +163,19 @@ input:focus {
 }
 
 .color-grey {
-    color: #4b4b4b;
+    color: var(--color-grey);
 }
 
 .color-white {
-    color: #E5E6E7;
+    color: white;
 }
 
 .color-green {
-    color: #44bd32;
+    color: var(--color-green);
 }
 
 .color-red {
-    color: red;
+    color: var(--color-red);
 }
 
 .ct-input {
@@ -177,10 +188,9 @@ input:focus {
     margin-right: auto;
     margin-bottom: 0.4rem;
     margin-top: 0.4rem;
-    color: #4b4b4b;
 
+    color: var(--color-grey);
     background-color: #f0f0f0;
-
     height: 3rem;
 }
 
@@ -216,7 +226,7 @@ input:focus {
     font-size: 3rem;
     text-align: center;
     padding-top: 1.8rem;
-    background-color: yellow;
+    background-color: var(--color-yellow);
     border-radius: 10px 10px 0px 0px;
 }
 
@@ -246,7 +256,7 @@ input:focus {
 
 .topbar {
     align-content: space-between;
-    background-color: #333333;
+    background-color: var(--color-brown);
 }
 
 .topbar-container {
@@ -295,7 +305,7 @@ div.topbar-item-container .topbar-item {
     right: 5px;
     text-align: center;
     background-color: white;
-    box-shadow: 1px 1px 1px 2px #333333;
+    box-shadow: 1px 1px 1px 2px var(--color-brown);
 }
 
 #dropdown_account:hover {
@@ -308,7 +318,7 @@ div.topbar-item-container .topbar-item {
 }
 
 .dropdown-item:hover {
-    background-color: #333333;
+    background-color: var(--color-brown);
     color: white;
 }
 
@@ -316,7 +326,7 @@ div.topbar-item-container .topbar-item {
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
-    box-shadow: 0px 1px 3px grey;
+    box-shadow: 0px 1px 3px var(--color-grey);
     border-radius: 10px;
     margin: 0.8rem;
     padding-left: 0.3rem;
@@ -325,7 +335,7 @@ div.topbar-item-container .topbar-item {
     position: relative;
     text-decoration: none;
     cursor: pointer;
-    color: #2f3640;
+    color: var(--color-brown);
 }
 
 .card-container h3 {
@@ -361,11 +371,11 @@ div.topbar-item-container .topbar-item {
 }
 
 .good_anwer {
-    color: #44bd32;
+    color: var(--color-green);
 }
 
 .bad_answer {
-    color: red;
+    color: var(--color-red);
     text-decoration: line-through;
 }
 
@@ -380,7 +390,7 @@ div.topbar-item-container .topbar-item {
     border-bottom: 1px solid rgb(235, 237, 240);
     margin-top: 1.4rem;
     padding-bottom: 1.6rem;
-    color: #90949c;
+    color: var(--color-grey-light);
     font-size: 1.1rem;
     font-weight: 600;
     position: relative;
@@ -388,7 +398,7 @@ div.topbar-item-container .topbar-item {
 
 .profil-item .profil-label {
     width: 30%;
-    color: #333;
+    color: var(--color-brown);
     float: left;
 }
 
@@ -421,7 +431,7 @@ div.topbar-item-container .topbar-item {
     height: 2.5rem;
     width: 100%;
     border-radius: 5px;
-    color: #4b4b4b;
+    color: var(--color-grey);
     border: none;
     background-color: #f0f0f0;
     padding-left: 0.5rem;
@@ -434,15 +444,15 @@ div.topbar-item-container .topbar-item {
 }
 
 .flashcards-card {
-    border: #90949c solid 2px;
+    border: var(--color-grey-light) solid 2px;
     width: 60%;
     height: 13rem;
     border-radius: 23px;
-    color: #4b4b4b;
+    color: var(--color-grey);
     display: flex;
     justify-content: center;
     margin: auto;
-    box-shadow: 1px 1px 3px #90949c;
+    box-shadow: 1px 1px 3px var(--color-grey-light);
     margin-bottom: 2rem;
     -webkit-transition: all 1s;
     -moz-transition: all 1s;
@@ -492,19 +502,19 @@ div.topbar-item-container .topbar-item {
 
 .points-green {
     right: 7%;
-    color: #83dc3a;
+    color: var(--color-green);
 }
 
 .points-red {
     left: 7%;
-    color: #ed4445;
+    color: var(--color-red);
 }
 
 .remaining-cards {
     text-align: center;
     font-size: 1.5rem;
     font-weight: bold;
-    color: #4b4b4b;
+    color: var(--color-grey);
 }
 
 .btn-qdd-qcm {
@@ -519,12 +529,81 @@ div.topbar-item-container .topbar-item {
     text-transform: uppercase;
     text-decoration: none;
     cursor: pointer;
-    border: 1px solid #4b4b4b;
+    border: 1px solid var(--color-grey);
     width: 80%;
     margin-left: 10%;
     border-radius: 1rem;
-    background-color: #4b4b4b;
+    background-color: var(--color-grey);
     margin-top: 2.5rem;
     color: white;
     padding: 0.6rem 0rem;
+}
+
+.down-cards {
+    margin-bottom: 5rem;
+}
+
+.add-answer-container {
+    height: 2rem;
+    width: 2rem;
+    text-align: center;
+    margin: auto;
+    margin-top: -0.1rem;
+    color: var(--color-yellow);
+    border-top-left-radius: 0%;
+    border-top-right-radius: 0%;
+    border-bottom-right-radius: 30%;
+    border-bottom-left-radius: 30%;
+    padding-top: 0rem;
+    font-size: 3rem;
+    padding-bottom: 0rem;
+    position: relative;
+    z-index: 0;
+    border-right-color: rgb(229, 229, 229);
+    border-right-style: solid;
+    border-right-width: 2px;
+    border-bottom-color: rgb(229, 229, 229);
+    border-bottom-style: solid;
+    border-bottom-width: 2px;
+    border-left-color: rgb(229, 229, 229);
+    border-left-style: solid;
+    border-left-width: 2px;
+    border-image-source: initial;
+    border-image-slice: initial;
+    border-image-width: initial;
+    border-image-outset: initial;
+    border-image-repeat: initial;
+}
+
+.add-answer:hover {
+    cursor: pointer;
+}
+
+.add-answer {
+    position: absolute;
+    bottom: -0.8rem;
+    left: 0.15rem;
+}
+
+.btn-add-question-container {
+    width: 100%;
+    position: relative;
+    height: 5rem;
+}
+
+.btn-add-question {
+    width: 8rem !important;
+    position: absolute;
+    right: 1rem;
+}
+
+.fa-minus {
+    position: absolute;
+    right: 1rem;
+    bottom: 1.2rem;
+    color: var(--color-red);
+}
+
+.fa-minus:hover {
+    cursor: pointer;
 }

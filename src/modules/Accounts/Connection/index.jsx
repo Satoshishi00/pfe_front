@@ -10,7 +10,7 @@ import CustomInput from "components/CustomInput";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const Connection = () => {
+const Connection = ({ history }) => {
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
   const [cookies, setCookie] = useCookies([
@@ -66,7 +66,7 @@ const Connection = () => {
       setCookie("user_image", data.image, { path: "/" });
       setCookie("user_updated_at", data.updated_at, { path: "/" });
       setCookie("user_created_at", data.created_at, { path: "/" });
-      window.location.replace(window.location.origin + "/home");
+      history.push("/home");
     }
   };
 
@@ -77,7 +77,15 @@ const Connection = () => {
     //const myHeaders = new Headers();
     //myHeaders.append("brainer-id", cookies.id);
     //myHeaders.append("brainer-pepper", cookies.pepper);
-    fetch(URL, { method: "POST" /*, headers: myHeaders*/ })
+    fetch(URL, {
+      method: "POST",
+      headers: {
+        id: cookies.brainer_id,
+        pepper: cookies.brainer_pepper,
+        security: "false",
+        Accept: "application/json; odata=verbose"
+      }
+    })
       .then(response => response.json())
       .then(buildList)
       .catch();

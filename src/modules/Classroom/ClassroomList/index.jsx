@@ -1,49 +1,35 @@
 import React, { useState, useCallback, useEffect } from "react";
-
-import Categories from "components/Categories";
+import { Link } from "react-router-dom";
 import Loader from "components/Loader";
 
-import Qcm from "./Qcm";
+import ButtonPrimary from "components/StyledButtons/ButtonPrimary";
 
-const Home = () => {
-  const [loading, setLoading] = useState(true);
+const ClassroomList = () => {
+  /*const [loading, setLoading] = useState(true);
   const [qcms, setQcms] = useState([]);
-  const [error, setError] = useState("");
 
   const buildList = useCallback(
     data => {
-      console.log(data);
       if (typeof data.error !== undefined && data.error) {
-        setError(data.error);
+        const error = data.error;
         console.log(error);
-      } else if (data.logout) {
-        console.log("On se déconnecte");
-        window.location.replace("http://localhost:3000/signin");
       } else {
-        console.log(data);
         setQcms(data);
       }
       setLoading(false);
     },
-    [error, qcms, loading]
+    [qcms, loading]
   );
 
   useEffect(() => {
     const URL = "http://127.0.0.1:8000/qcm/show/all?limit=6&page_number=1";
-    fetch(URL, { method: "GET" })
+    fetch(URL, { method: "POST" })
       .then(response => response.json())
       .then(buildList)
       .catch(console.log("error AJAX request"));
   }, []);
-
-  return (
-    <div className="container">
-      <h1 className="color-grey">Explorer Brainer</h1>
-      <Categories />
-
-      <h2 className="color-grey">Quizz les plus populaires</h2>
-      <div className="qcms-container">
-        <Loader
+  
+       <Loader
           loading={loading}
           render={qcms.map(qcm => (
             <Qcm
@@ -55,9 +41,22 @@ const Home = () => {
             />
           ))}
         />
+  
+  */
+
+  return (
+    <div className="container">
+      <h1 className="color-grey">Classes</h1>
+
+      <div className="qcms-container">
+        <Link to="makeClassroom">
+          <ButtonPrimary className="btn-qdd-qcm">Créer</ButtonPrimary>
+        </Link>
       </div>
+
+      <p>Vous ne faites partie d'aucune classe</p>
     </div>
   );
 };
 
-export default Home;
+export default ClassroomList;

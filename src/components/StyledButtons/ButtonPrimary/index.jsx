@@ -3,7 +3,7 @@ import styled from "styled-components";
 const ButtonPrimary = styled.button`
   padding-left: 0.25em;
   padding-top: 0.15em;
-  background-color: #1cb0f6;
+  background-color: #3578e5;
   color: white;
   :hover {
     cursor: pointer;

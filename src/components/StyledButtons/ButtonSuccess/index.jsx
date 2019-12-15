@@ -3,7 +3,7 @@ import styled from "styled-components";
 const ButtonSuccess = styled.button`
   padding-left: 0.25em;
   padding-top: 0.15em;
-  background-color: #83dc3a;
+  background-color: #6cb400;
   color: white;
   :hover {
     cursor: pointer;

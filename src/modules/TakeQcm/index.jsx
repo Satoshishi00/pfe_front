@@ -4,6 +4,8 @@ import Loader from "components/Loader";
 
 import Response from "./Response";
 
+import checkIfUrlInString from "utils/checkIfUrlInString";
+
 const TakeQcm = () => {
   const [loading, setLoading] = useState(true);
   const [questions, setQuestions] = useState([]);
@@ -67,7 +69,11 @@ const TakeQcm = () => {
             {question.question_response.charAt(0).toUpperCase() +
               question.question_response.slice(1)}
           </p>
-          {isResult && <p className="qcm-advice">{question.advice}</p>}
+          {isResult && (
+            <p className="qcm-advice">
+              {question.advice ? checkIfUrlInString(question.advice) : ""}
+            </p>
+          )}
           <Loader
             loading={loading}
             render={current_answers.map(response => (

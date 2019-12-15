@@ -25,6 +25,9 @@ import FlashCards from "modules/FlashCards";
 import TakeFlashCards from "modules/TakeFlashCards";
 import Profil from "modules/Accounts/Profil";
 import Landing from "modules/Landing";
+import addQcm from "modules/CreateQcm";
+import ClassroomList from "modules/Classroom/ClassroomList";
+import MakeClassroom from "modules/Classroom/MakeClassroom";
 
 
 const App = () => (
@@ -42,6 +45,9 @@ const App = () => (
           <MyRoute path="/flashcards/:id?" component={TakeFlashCards} />
           <MyRoute path="/flashcardsList" component={FlashCards} />
           <MyRoute path="/profil" component={Profil} />
+          <MyRoute path="/addQcm" component={addQcm} />
+          <MyRoute path="/classroomList" component={ClassroomList} />
+          <MyRoute path="/makeClassroom" component={MakeClassroom} />
           <MyRoute path="/" component={Landing} />
         </Switch>
       </CookiesProvider>

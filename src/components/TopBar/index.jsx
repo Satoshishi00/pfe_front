@@ -30,6 +30,20 @@ const TopBar = () => {
     console.log(display);
   };
 
+  const dropdown_on = e => {
+    let display = document.getElementById("dropdown_account").classList;
+    display.add("flex");
+    display.remove("none");
+    console.log(display);
+  };
+
+  const dropdown_off = e => {
+    let display = document.getElementById("dropdown_account").classList;
+    display.remove("flex");
+    display.add("none");
+    console.log(display);
+  };
+
   const LogOut = e => {
     removeCookie("brainer_id");
     removeCookie("brainer_pepper");
@@ -46,6 +60,7 @@ const TopBar = () => {
     removeCookie("user_update_at");
     removeCookie("user_created_at");
     toast.success("Vous avez bien été déconnecté");
+    dropdown_off();
   };
 
   return (
@@ -80,8 +95,8 @@ const TopBar = () => {
           </div>
           <div
             className="flex fd-column"
-            onMouseEnter={toggle_dropdown}
-            onMouseLeave={toggle_dropdown}
+            onMouseEnter={dropdown_on}
+            onMouseLeave={dropdown_off}
           >
             <img
               className="topbar-account-img mg-r"
@@ -102,6 +117,12 @@ const TopBar = () => {
                 </Link>
                 <Link className="bold link color-grey dropdown-item" to="/home">
                   Securité
+                </Link>
+                <Link
+                  className="bold link color-grey dropdown-item"
+                  to="/classroomList"
+                >
+                  Classe
                 </Link>
                 <Link
                   className="bold link color-grey dropdown-item"
