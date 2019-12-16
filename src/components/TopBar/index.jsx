@@ -1,27 +1,16 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { useCookies } from "react-cookie";
 
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
+import { UserContext } from "contexts/UserContext";
+
 const TopBar = () => {
-  const [cookies, setCookie, removeCookie] = useCookies([
-    "brainer_id",
-    "brainer_pepper",
-    "user_id",
-    "user_email",
-    "user_username",
-    "user_password",
-    "user_nb_classes",
-    "user_nb_qcm",
-    "user_nb_flash_cards",
-    "user_points",
-    "user_premium",
-    "user_image",
-    "user_update_at",
-    "user_created_at"
-  ]);
+  const { user, setUser } = useContext(UserContext);
+
+  const { points, image, id } = user;
 
   const toggle_dropdown = e => {
     let display = document.getElementById("dropdown_account").classList;
@@ -45,20 +34,6 @@ const TopBar = () => {
   };
 
   const LogOut = e => {
-    removeCookie("brainer_id");
-    removeCookie("brainer_pepper");
-    removeCookie("user_id");
-    removeCookie("user_email");
-    removeCookie("user_username");
-    removeCookie("user_password");
-    removeCookie("user_nb_classes");
-    removeCookie("user_nb_qcm");
-    removeCookie("user_nb_flash_cards");
-    removeCookie("user_points");
-    removeCookie("user_premium");
-    removeCookie("user_image");
-    removeCookie("user_update_at");
-    removeCookie("user_created_at");
     toast.success("Vous avez bien été déconnecté");
     dropdown_off();
   };
@@ -89,9 +64,7 @@ const TopBar = () => {
 
         <div className="topbar-container flex">
           <div className="topbar-item-container flex center">
-            <span className="topbar-item center">
-              {cookies.user_points ? cookies.user_points + " points" : ""}
-            </span>
+            <span className="topbar-item center">{points + " points"}</span>
           </div>
           <div
             className="flex fd-column"
@@ -101,13 +74,13 @@ const TopBar = () => {
             <img
               className="topbar-account-img mg-r"
               src={
-                cookies.user_image
-                  ? "http://127.0.0.1:8000/medias/images/" + cookies.user_image
+                image !== ""
+                  ? "http://127.0.0.1:8000/medias/images/" + image
                   : "favicon.ico"
               }
               alt=""
             />
-            {(cookies.user_id && (
+            {(id && (
               <div id="dropdown_account" className="none dropdown-container">
                 <Link
                   className="bold link color-grey dropdown-item"

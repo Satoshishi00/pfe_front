@@ -8,7 +8,11 @@ import QuestionInput from "components/QuestionInput";
 import "react-toastify/dist/ReactToastify.css";
 import ButtonSuccess from "components/StyledButtons/ButtonSuccess";
 
+import { useCookies } from "react-cookie";
+
 const CreateQcm = () => {
+  const [cookies, setCookie] = useCookies(["brainer_id", "brainer_spepper"]);
+  const [error, setError] = useState("");
   const [qcmName, setQcmName] = useState("");
   const [qcmDescription, setQcmDescription] = useState("");
   const [questionNumber, setQuestionNumber] = useState(1);
@@ -41,10 +45,51 @@ const CreateQcm = () => {
     setQuestionNumber(questionNumber + 1);
   };
 
+  const createQcm = e => {
+    let form = new FormData(e.target);
+    e.preventDefault();
+    console.log(form);
+    console.log(form.get("qcmName"));
+    let URL =
+      "http://127.0.0.1:8000/qcm/new?qcm_name=" +
+      form.get("qcmName") +
+      "&qcm_description=" +
+      form.get("qcmDescription");
+    console.log(URL);
+    fetch(URL, {
+      method: "POST",
+      headers: {
+        id: cookies.brainer_id,
+        pepper: cookies.brainer_pepper,
+        security: "true",
+        Accept: "application/json; odata=verbose"
+      },
+      body: JSON.stringify({
+        form
+      })
+    })
+      .then(response => response.json())
+      .then(buildList)
+      .catch(console.log("error AJAX request"));
+  };
+
+  const buildList = useCallback(
+    data => {
+      console.log(data);
+      if (typeof data.error !== undefined && data.error) {
+        setError(data.error);
+        console.log(error);
+      } else {
+        console.log("QCM ajoutée");
+      }
+    },
+    [error]
+  );
+
   return (
     <div className="container">
       <h1 className="color-grey">Créer un Qcm</h1>
-      <form onSubmit={() => {}}>
+      <form onSubmit={createQcm}>
         <StyledContainerInput>
           <CustomInput
             type="text"

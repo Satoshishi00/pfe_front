@@ -8,7 +8,10 @@ import FlashcardInput from "components/FlashcardInput";
 import "react-toastify/dist/ReactToastify.css";
 import ButtonSuccess from "components/StyledButtons/ButtonSuccess";
 
+import { useCookies } from "react-cookie";
+
 const CreateFlashCards = () => {
+  const [cookies, setCookie] = useCookies(["brainer_id", "brainer_spepper"]);
   const [fcName, setFcName] = useState("");
   const [rectoName, setRectoName] = useState("");
   const [versoName, setVersoName] = useState("");
@@ -59,30 +62,52 @@ const CreateFlashCards = () => {
     [error]
   );
 
-  useEffect(() => {
-    const URL =
-      "http://127.0.0.1:8000/flashCards/new?recto_type=text&verso_type=text";
-    fetch(URL, { method: "POST" })
-      .then(response => response.json())
-      .then(buildList)
-      .catch(console.log("error AJAX request"));
-  }, []);
+  //   useEffect(() => {
+  //     const URL =
+  //       "http://127.0.0.1:8000/flashCards/new?recto_type=text&verso_type=text";
+  //     fetch(URL, { method: "POST" })
+  //       .then(response => response.json())
+  //       .then(buildList)
+  //       .catch(console.log("error AJAX request"));
+  //   }, []);
 
   const createFc = e => {
+    let form = new FormData(e.target);
     e.preventDefault();
-    const URL =
+    console.log(form);
+    let URL =
       "http://127.0.0.1:8000/flashCards/new?recto_type=text&verso_type=text&fc_name=" +
       fcName +
       "&recto_name=" +
       rectoName +
       "&verso_name=" +
       versoName;
+    for (let i = 1; i < cardNumber; i++) {
+      URL = URL + "&card_recto_" + i + "=" + form.get("card_recto_" + i);
+      URL = URL + "&card_verso_" + i + "=" + form.get("card_verso_" + i);
+    }
+    console.log(URL);
+    fetch(URL, {
+      method: "POST",
+      headers: {
+        id: cookies.brainer_id,
+        pepper: cookies.brainer_pepper,
+        security: "true",
+        Accept: "application/json; odata=verbose"
+      }
+      //   body: JSON.stringify({
+      //     form
+      //   });
+    })
+      .then(response => response.json())
+      .then(buildList)
+      .catch(console.log("error AJAX request"));
   };
 
   return (
     <div className="container">
       <h1 className="color-grey">Créer un deck</h1>
-      <form onSubmit={() => {}}>
+      <form onSubmit={createFc}>
         <StyledContainerInput>
           <CustomInput
             type="text"
@@ -127,9 +152,7 @@ const CreateFlashCards = () => {
           </ButtonSuccess>
         </div>
 
-        <ButtonPrimary id="btn-create-qcm" onClick={() => {}}>
-          Fabriquer
-        </ButtonPrimary>
+        <ButtonPrimary id="btn-create-qcm">Fabriquer</ButtonPrimary>
       </form>
     </div>
   );

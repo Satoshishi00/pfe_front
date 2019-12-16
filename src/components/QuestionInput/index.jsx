@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useMemo } from "react";
 
 import StyledContainerInput from "components/ContainerInput";
 import CustomInput from "components/CustomInput";
@@ -7,63 +7,49 @@ import "react-toastify/dist/ReactToastify.css";
 
 const QuestionInput = props => {
   const [question, setQuestion] = useState("");
-  const [answer, setAnswer] = useState("");
-  const [answerIndex, setAnswerIndex] = useState(1);
+  const [nbOfAnswers, setNbOfAnswers] = useState(1);
   const [answers, setAnswers] = useState([]);
 
-  useEffect(() => {
-    addAnswer();
-  }, []);
+  const updateQuestion = useCallback(e => setQuestion(e.target.value), []);
 
-  const update = useCallback(
-    (e, { name, value }) => {
-      if (name === "question" + props.num) {
-        setQuestion(value);
-        console.log("question input state : ", value);
-      } else if (name.substr(0, 5 + props.num) === "q" + props.num + "-rep") {
-        // setAnswer(value);
-        // console.log("answer input state : ", value);
-        for (let i = 1; i <= answerIndex; i++) {
-          if (name === "q" + props.num + "-rep" + i) {
-            setAnswer(value);
-            console.log("answer input state : ", value);
-          }
-          console.log("q" + props.num + "-rep" + i);
-        }
-      } else {
-        console.log("substr : ", name.substr(0, 5 + props.num));
-        console.log("field name : ", "q" + props.num + "-rep");
-      }
+  const updateAnswer = useCallback(
+    (e, i) => {
+      answers[i] = e.target.value;
+      setAnswers(answers);
     },
-    [setQuestion, setAnswer]
+    [answers]
   );
 
-  const addAnswer = e => {
-    e && e.preventDefault();
-    setAnswers([
-      ...answers,
-      <div className="relative">
-        <CustomInput
-          id="answer-input-html"
-          type="text"
-          key={`q${props.num}-rep${answerIndex}`}
-          update={update}
-          value={answer}
-          placeholder={`Réponse ${answerIndex}`}
-          name={`q${props.num}-rep${answerIndex}`}
-          color="grey"
-          className="ct-input"
-        />
-        <i className="fas fa-minus" onClick={deleteAnswer}></i>
-      </div>
-    ]);
-
-    setAnswerIndex(answerIndex + 1);
-  };
+  const addAnswer = e => setNbOfAnswers(nbOfAnswers + 1);
 
   const deleteAnswer = () => {
     console.log("toto");
   };
+
+  const displayAnswers = useMemo(() => {
+    console.log("displayAnswer", "pass");
+    console.log("nbOfAnswers", nbOfAnswers);
+    const answersInputs = [];
+    for (let i = 0; i < nbOfAnswers; i++) {
+      console.log("i", i);
+      answersInputs.push(
+        <div className="relative">
+          <CustomInput
+            type="text"
+            name={`q${props.num}_ans${i + 1}`}
+            key={i}
+            update={e => updateAnswer(e, i)}
+            value={answers[i]}
+            placeholder={`Réponse ${i + 1}`}
+            color="grey"
+            className="ct-input"
+          />
+          <i className="fas fa-minus" onClick={deleteAnswer}></i>
+        </div>
+      );
+    }
+    return answersInputs;
+  }, [nbOfAnswers, updateAnswer, answers]);
 
   return (
     <div id={"question-html-" + props.num}>
@@ -71,14 +57,14 @@ const QuestionInput = props => {
         <CustomInput
           type="text"
           key={"question" + props.num}
-          update={update}
+          update={updateQuestion}
           value={question}
           placeholder="Question"
           name={"question" + props.num}
           color="grey"
           className="ct-input"
         />
-        {answers.map(answer => answer)}
+        {displayAnswers}
       </StyledContainerInput>
       <div className="add-answer-container">
         <div className="add-answer" onClick={addAnswer}>

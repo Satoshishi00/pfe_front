@@ -5,6 +5,7 @@ import Loader from "components/Loader";
 import Response from "./Response";
 
 import checkIfUrlInString from "utils/checkIfUrlInString";
+import MakeLinkIfUrl from "components/MakeLinkIfUrl";
 
 const TakeQcm = () => {
   const [loading, setLoading] = useState(true);
@@ -71,7 +72,11 @@ const TakeQcm = () => {
           </p>
           {isResult && (
             <p className="qcm-advice">
-              {question.advice ? checkIfUrlInString(question.advice) : ""}
+              {question.advice ? (
+                <MakeLinkIfUrl theString={question.adive} />
+              ) : (
+                ""
+              )}
             </p>
           )}
           <Loader

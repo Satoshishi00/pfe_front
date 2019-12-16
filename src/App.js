@@ -29,13 +29,16 @@ import addQcm from "modules/CreateQcm";
 import ClassroomList from "modules/Classroom/ClassroomList";
 import MakeClassroom from "modules/Classroom/MakeClassroom";
 import CreateFlashCards from "modules/CreateFlashCards";
+import Provider from "contexts/UserContext";
 
 
 const App = () => (
      <Router>
-      <TopBar/>
+      
       <ToastContainer/>
+      <Provider>
       <CookiesProvider>
+      <TopBar />
         <Switch>
           <MyRoute path="/signin" component={Connection} />
           <MyRoute path="/signup" component={Inscription} />
@@ -53,6 +56,7 @@ const App = () => (
           <MyRoute path="/" component={Landing} />
         </Switch>
       </CookiesProvider>
+      </Provider>
       <Footer/>
     </Router>
 );

@@ -37,7 +37,7 @@ const FlashCards = () => {
 
   useEffect(() => {
     const URL =
-      "http://127.0.0.1:8000/flashCards/show/all?limit=6&page_number=1";
+      "http://127.0.0.1:8000/flashCards/show/all?limit=8&page_number=1";
     fetch(URL, { method: "POST" })
       .then(response => response.json())
       .then(buildList)
