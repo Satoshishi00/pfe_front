@@ -41,8 +41,8 @@ input:focus {
 }
 
 .container {
-    padding-left: 18rem;
-    padding-right: 18rem;
+    /* padding-left: 18rem;
+    padding-right: 18rem; */
     flex: 1;
 }
 
@@ -79,8 +79,8 @@ input:focus {
 
 @media (min-width: 700px) and (max-width: 899px) {
     .container {
-        padding-left: 4rem;
-        padding-right: 4rem;
+        width: 41rem;
+        margin: auto;
     }
 
     .topbar-item-container {
@@ -88,21 +88,13 @@ input:focus {
     }
 }
 
-@media (min-width: 900px) and (max-width: 1050px) {
+
+
+@media (min-width: 900px) {
     .container {
-        padding-left: 8rem;
-        padding-right: 8rem;
+        width: 41rem;
+        margin: auto;
     }
-
-}
-
-@media (min-width: 1050px) and (max-width: 1200px) {
-    .container {
-        padding-left: 12rem;
-        padding-right: 12rem;
-    }
-
-
 }
 
 

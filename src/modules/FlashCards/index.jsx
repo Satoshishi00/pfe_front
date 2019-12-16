@@ -49,6 +49,10 @@ const FlashCards = () => {
       <h1 className="color-grey">Flash Cards</h1>
 
       <div className="qcms-container">
+        <Link to="addFlashcards">
+          <ButtonPrimary className="btn-qdd-qcm">Créer</ButtonPrimary>
+        </Link>
+
         <Loader
           loading={loading}
           render={cards.map(card => (

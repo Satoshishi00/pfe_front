@@ -28,6 +28,7 @@ import Landing from "modules/Landing";
 import addQcm from "modules/CreateQcm";
 import ClassroomList from "modules/Classroom/ClassroomList";
 import MakeClassroom from "modules/Classroom/MakeClassroom";
+import CreateFlashCards from "modules/CreateFlashCards";
 
 
 const App = () => (
@@ -46,6 +47,7 @@ const App = () => (
           <MyRoute path="/flashcardsList" component={FlashCards} />
           <MyRoute path="/profil" component={Profil} />
           <MyRoute path="/addQcm" component={addQcm} />
+          <MyRoute path="/addFlashcards" component={CreateFlashCards} />
           <MyRoute path="/classroomList" component={ClassroomList} />
           <MyRoute path="/makeClassroom" component={MakeClassroom} />
           <MyRoute path="/" component={Landing} />

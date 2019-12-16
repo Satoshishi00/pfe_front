@@ -12,22 +12,12 @@ import ButtonSuccess from "components/StyledButtons/ButtonSuccess";
 
 import CustomInput from "components/CustomInput";
 
-const MakeClassroom = () => {
+const MakeClassroom = ({ history }) => {
   const [cookies, setCookie] = useCookies([
     "brainer_id",
-    "brainer_spepper",
-    "user_id",
-    "user_email",
-    "user_username",
-    "user_password",
+    "brainer_pepper",
     "user_nb_classes",
-    "user_nb_qcm",
-    "user_nb_flash_cards",
-    "user_points",
-    "user_premium",
-    "user_image",
-    "user_update_at",
-    "user_created_at"
+    "user_points"
   ]);
   const [groupName, setGroupName] = useState("");
 
@@ -65,8 +55,10 @@ const MakeClassroom = () => {
     if (typeof data.error !== undefined && data.error) {
       toast.error(data.error);
     } else {
-      toast.success("Votre class '" + groupName + "' a bien était créée !");
-      window.location.replace(window.location.origin + "/classroomList");
+      toast.success(data.message);
+      setCookie("user_nb_classes", data.nbClasses);
+      setCookie("user_points", data.nbPoints);
+      history.push("/classroomList");
     }
   };
 

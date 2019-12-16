@@ -17,24 +17,19 @@ const QuestionInput = props => {
 
   const update = useCallback(
     (e, { name, value }) => {
-      /*switch (name) {
-        case "question" + props.num:
-          setQuestion(value);
-          console.log("question input state : ", value);
-          break;
-        case "q" + props.num + "-rep1":
-          setAnswer(value);
-          console.log("answer input state : ", value);
-          break;
-        default:
-          break;
-      }*/
       if (name === "question" + props.num) {
         setQuestion(value);
         console.log("question input state : ", value);
       } else if (name.substr(0, 5 + props.num) === "q" + props.num + "-rep") {
-        setAnswer(value);
-        console.log("answer input state : ", value);
+        // setAnswer(value);
+        // console.log("answer input state : ", value);
+        for (let i = 1; i <= answerIndex; i++) {
+          if (name === "q" + props.num + "-rep" + i) {
+            setAnswer(value);
+            console.log("answer input state : ", value);
+          }
+          console.log("q" + props.num + "-rep" + i);
+        }
       } else {
         console.log("substr : ", name.substr(0, 5 + props.num));
         console.log("field name : ", "q" + props.num + "-rep");
