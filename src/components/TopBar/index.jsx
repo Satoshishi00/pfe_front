@@ -76,8 +76,9 @@ const TopBar = () => {
               src={
                 image !== ""
                   ? "http://127.0.0.1:8000/medias/images/" + image
-                  : "favicon.ico"
+                  : "key.png"
               }
+              style={{ borderRadius: image !== "" ? "50%" : "0%" }}
               alt=""
             />
             {(id && (
