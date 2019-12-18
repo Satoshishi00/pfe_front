@@ -3,12 +3,18 @@ import { Link } from "react-router-dom";
 import Loader from "components/Loader";
 
 import ButtonPrimary from "components/StyledButtons/ButtonPrimary";
+import { useCookies } from "react-cookie";
 
 import Qcm from "./Qcm";
 
 const QcmList = () => {
   const [loading, setLoading] = useState(true);
   const [qcms, setQcms] = useState([]);
+  const [cookies, setCookie] = useCookies([
+    "brainer_id",
+    "brainer_spepper",
+    "user_id"
+  ]);
 
   const buildList = useCallback(
     data => {
@@ -25,7 +31,15 @@ const QcmList = () => {
 
   useEffect(() => {
     const URL = "http://127.0.0.1:8000/qcm/show/all?limit=16&page_number=1";
-    fetch(URL, { method: "POST" })
+    fetch(URL, {
+      method: "POST",
+      headers: {
+        id: cookies.brainer_id,
+        pepper: cookies.brainer_pepper,
+        security: "false",
+        Accept: "application/json; odata=verbose"
+      }
+    })
       .then(response => response.json())
       .then(buildList)
       .catch(console.log("error AJAX request"));
@@ -36,9 +50,11 @@ const QcmList = () => {
       <h1 className="color-grey">QCM</h1>
 
       <div className="qcms-container">
-        <Link to="addQcm">
-          <ButtonPrimary className="btn-qdd-qcm">Créer</ButtonPrimary>
-        </Link>
+        {cookies.user_id && (
+          <Link to="addQcm">
+            <ButtonPrimary className="btn-qdd-qcm">Créer</ButtonPrimary>
+          </Link>
+        )}
 
         <Loader
           loading={loading}

@@ -7,12 +7,19 @@ import Response from "./Response";
 import checkIfUrlInString from "utils/checkIfUrlInString";
 import MakeLinkIfUrl from "components/MakeLinkIfUrl";
 
+import { useCookies } from "react-cookie";
+
 const TakeQcm = () => {
   const [loading, setLoading] = useState(true);
   const [questions, setQuestions] = useState([]);
   const [qcm, setQcm] = useState([]);
   const [answers, setAnswers] = useState();
   const [isResult, setIsResult] = useState(false);
+  const [cookies, setCookie] = useCookies([
+    "brainer_id",
+    "brainer_spepper",
+    "user_id"
+  ]);
 
   const buildList = useCallback(
     data => {
@@ -41,7 +48,15 @@ const TakeQcm = () => {
     const curent_url = window.location.href;
     const id_qcm = curent_url.split("/")[4];
     const URL = "http://127.0.0.1:8000/qcm/" + id_qcm + "/result";
-    fetch(URL, { method: "GET" })
+    fetch(URL, {
+      method: "GET",
+      headers: {
+        id: cookies.brainer_id,
+        pepper: cookies.brainer_pepper,
+        security: "false",
+        Accept: "application/json; odata=verbose"
+      }
+    })
       .then(response => response.json())
       .then(buildList)
       .catch(console.log("error AJAX request"));
@@ -72,11 +87,7 @@ const TakeQcm = () => {
           </p>
           {isResult && (
             <p className="qcm-advice">
-              {question.advice ? (
-                <MakeLinkIfUrl theString={question.adive} />
-              ) : (
-                ""
-              )}
+              {question.advice ? checkIfUrlInString(question.advice) : ""}
             </p>
           )}
           <Loader

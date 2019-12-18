@@ -3,12 +3,19 @@ import React, { useState, useCallback, useEffect } from "react";
 import Categories from "components/Categories";
 import Loader from "components/Loader";
 
+import { useCookies } from "react-cookie";
+
 import Qcm from "./Qcm";
 
 const Home = () => {
   const [loading, setLoading] = useState(true);
   const [qcms, setQcms] = useState([]);
   const [error, setError] = useState("");
+  const [cookies, setCookie] = useCookies([
+    "brainer_id",
+    "brainer_spepper",
+    "user_id"
+  ]);
 
   const buildList = useCallback(
     data => {
@@ -30,7 +37,15 @@ const Home = () => {
 
   useEffect(() => {
     const URL = "http://127.0.0.1:8000/qcm/show/all?limit=6&page_number=1";
-    fetch(URL, { method: "GET" })
+    fetch(URL, {
+      method: "GET",
+      headers: {
+        id: cookies.brainer_id,
+        pepper: cookies.brainer_pepper,
+        security: "false",
+        Accept: "application/json; odata=verbose"
+      }
+    })
       .then(response => response.json())
       .then(buildList)
       .catch(console.log("error AJAX request"));

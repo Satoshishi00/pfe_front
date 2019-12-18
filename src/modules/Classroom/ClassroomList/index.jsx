@@ -10,7 +10,11 @@ import Classe from "./Classe";
 const ClassroomList = () => {
   const [loading, setLoading] = useState(true);
   const [classes, setClasses] = useState([]);
-  const [cookies, setCookie] = useCookies(["brainer_id", "brainer_pepper"]);
+  const [cookies, setCookie] = useCookies([
+    "brainer_id",
+    "brainer_pepper",
+    "user_id"
+  ]);
 
   const buildList = useCallback(
     data => {
@@ -45,11 +49,13 @@ const ClassroomList = () => {
     <div className="container">
       <h1 className="color-grey">Classes</h1>
 
-      <div className="qcms-container">
-        <Link to="makeClassroom">
-          <ButtonPrimary className="btn-qdd-qcm">Créer</ButtonPrimary>
-        </Link>
-      </div>
+      {cookies.user_id && (
+        <div className="qcms-container">
+          <Link to="makeClassroom">
+            <ButtonPrimary className="btn-qdd-qcm">Créer</ButtonPrimary>
+          </Link>
+        </div>
+      )}
 
       {loading && <p>Vous ne faites partie d'aucune classe</p>}
 

@@ -55,7 +55,16 @@ const TakeFlashCards = () => {
     const id_fc = curent_url.split("/")[4];
     const URL = "http://127.0.0.1:8000/flashCards/" + id_fc + "/getRandomCard";
 
-    fetch(URL, { method: "POST", body: cardsDone })
+    fetch(URL, {
+      method: "POST",
+      headers: {
+        id: cookies.brainer_id,
+        pepper: cookies.brainer_pepper,
+        security: "false",
+        Accept: "application/json; odata=verbose"
+      },
+      body: cardsDone
+    })
       .then(response => response.json())
       .then(buildList)
       .catch(error => console.log("error api fetch", error));
@@ -71,6 +80,12 @@ const TakeFlashCards = () => {
 
       fetch(URL, {
         method: "POST",
+        headers: {
+          id: cookies.brainer_id,
+          pepper: cookies.brainer_pepper,
+          security: "false",
+          Accept: "application/json; odata=verbose"
+        },
         body: cardsDone
       })
         .then(response => response.json())
@@ -132,6 +147,12 @@ const TakeFlashCards = () => {
 
     fetch(URL, {
       method: "POST",
+      headers: {
+        id: cookies.brainer_id,
+        pepper: cookies.brainer_pepper,
+        security: "false",
+        Accept: "application/json; odata=verbose"
+      },
       body: test
     })
       .then(response => response.json())

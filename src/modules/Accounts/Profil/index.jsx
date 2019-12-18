@@ -2,8 +2,7 @@ import React, {
   useState,
   useCallback,
   useEffect,
-  useSubscription,
-  useContext
+  useSubscription
 } from "react";
 import { Link } from "react-router-dom";
 import { useCookies } from "react-cookie";
@@ -23,8 +22,6 @@ import formatTime from "utils/formatTime";
 import ButtonBlank from "components/StyledButtons/ButtonBlank";
 import LittleInput from "components/LittleInput";
 
-import { UserContext } from "contexts/UserContext";
-
 const Profil = () => {
   const [cookies, setCookie] = useCookies([
     "brainer_id",
@@ -42,32 +39,17 @@ const Profil = () => {
     "user_update_at",
     "user_created_at"
   ]);
-
-  const { user, setUser } = useContext(UserContext);
-
-  const { user_username, user_email } = user;
-
   const [loading, setLoading] = useState(true);
-  const [usernameInput, setUsernameInput] = useState(user_username);
-  const [old_email, setOldEmail] = useState(user_email);
+  const [username, setUsername] = useState(cookies.user_username);
+  const [old_email, setOldEmail] = useState(cookies.user_email);
   const [new_email1, setNewEmail1] = useState("");
   const [new_email2, setNewEmail2] = useState("");
-
-  const {
-    brainer_id,
-    brainer_pepper,
-    email,
-    username,
-    nb_classes,
-    nb_qcm,
-    nb_flash_cards
-  } = user;
 
   const update = useCallback(
     (e, { name, value }) => {
       switch (name) {
-        case "usernameInput":
-          setUsernameInput(value);
+        case "username":
+          setUsername(value);
           break;
         case "old_email":
           setOldEmail(value);
@@ -82,7 +64,7 @@ const Profil = () => {
           break;
       }
     },
-    [setUsernameInput, setOldEmail, setNewEmail1, setNewEmail2]
+    [setUsername, setOldEmail, setNewEmail1, setNewEmail2]
   );
 
   const editUsername = e => {
@@ -122,8 +104,8 @@ const Profil = () => {
     fetch(URL, {
       method: "POST",
       headers: {
-        id: brainer_id,
-        pepper: brainer_pepper,
+        id: cookies.brainer_id,
+        pepper: cookies.brainer_pepper,
         security: "true",
         Accept: "application/json; odata=verbose"
       }
@@ -139,12 +121,8 @@ const Profil = () => {
       toast.error(data.error);
       console.log(error);
     } else {
-      //setCookie("user_username", data.username, { path: "/" });
-      setUser({
-        ...user,
-        username: data.username
-      });
-      setUsernameInput(data.username);
+      setCookie("user_username", data.username, { path: "/" });
+      setUsername(data.username);
       toast.success("Votre pseudo a bien été modifié");
       editUsername();
     }
@@ -167,12 +145,10 @@ const Profil = () => {
       method: "POST",
       headers: {
         id: cookies.brainer_id,
-        pepper: cookies.brainer_pepper
+        pepper: cookies.brainer_pepper,
+        security: "true",
+        Accept: "application/json; odata=verbose"
       }
-      /*body: JSON.stringify({
-        old_email: form.get("old_email")
-      })*/
-      /* mode: "no-cors", /*body: form*/
     })
       .then(response => response.json())
       .then(buildListEmail)
@@ -231,7 +207,7 @@ const Profil = () => {
         <div className="profil-item">
           <div className="profil-label">Email : </div>
           <div id="displayEmail" className="profil-info block">
-            {user_email}
+            {cookies.user_email}
           </div>
           <div id="inputEmail" className="none profil-info">
             <form onSubmit={submitNewEmail}>

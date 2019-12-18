@@ -17,22 +17,11 @@ const Inscription = ({ history }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [username, setUsername] = useState("");
-  // const [cookies, setCookie] = useCookies([
-  //   "brainer_id",
-  //   "brainer_spepper",
-  //   "user_id",
-  //   "user_email",
-  //   "user_username",
-  //   "user_password",
-  //   "user_nb_classes",
-  //   "user_nb_qcm",
-  //   "user_nb_flash_cards",
-  //   "user_points",
-  //   "user_premium",
-  //   "user_image",
-  //   "user_update_at",
-  //   "user_created_at"
-  // ]);
+  const [cookies, setCookie] = useCookies([
+    "brainer_id",
+    "brainer_spepper",
+    "user_id"
+  ]);
   const { user, setUser } = useContext(UserContext);
 
   const update = useCallback(
@@ -89,7 +78,15 @@ const Inscription = ({ history }) => {
       username +
       "&plainPassword=" +
       password;
-    fetch(URL, { method: "POST" })
+    fetch(URL, {
+      method: "POST",
+      headers: {
+        id: cookies.brainer_id,
+        pepper: cookies.brainer_pepper,
+        security: "false",
+        Accept: "application/json; odata=verbose"
+      }
+    })
       .then(response => response.json())
       .then(buildList)
       .catch();
@@ -124,7 +121,11 @@ const Inscription = ({ history }) => {
           <span className="fb-color">Facebook</span>
         </ButtonBlank>
         <ButtonBlank className="mg-l">
-          <img src="/logo-google.png" alt="" className="logo-google mg-r" />
+          <img
+            src="/assets/images/logo-google.png"
+            alt=""
+            className="logo-google mg-r"
+          />
           <span>Google</span>
         </ButtonBlank>
       </div>

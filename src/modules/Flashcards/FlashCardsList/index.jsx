@@ -14,12 +14,14 @@ import Categories from "components/Categories";
 import Footer from "components/Footer";
 import Loader from "components/Loader";
 import { request } from "http";
+import { useCookies } from "react-cookie";
 
 import Card from "./Card";
 
 const FlashCards = () => {
   const [loading, setLoading] = useState(true);
   const [cards, setCards] = useState([]);
+  const [cookies, setCookie] = useCookies(["brainer_id", "brainer_spepper"]);
 
   console.log("enter");
   const buildList = useCallback(
@@ -38,7 +40,15 @@ const FlashCards = () => {
   useEffect(() => {
     const URL =
       "http://127.0.0.1:8000/flashCards/show/all?limit=8&page_number=1";
-    fetch(URL, { method: "POST" })
+    fetch(URL, {
+      method: "POST",
+      headers: {
+        id: cookies.brainer_id,
+        pepper: cookies.brainer_pepper,
+        security: "false",
+        Accept: "application/json; odata=verbose"
+      }
+    })
       .then(response => response.json())
       .then(buildList)
       .catch(console.log("error AJAX request"));
@@ -49,9 +59,11 @@ const FlashCards = () => {
       <h1 className="color-grey">Flash Cards</h1>
 
       <div className="qcms-container">
-        <Link to="addFlashcards">
-          <ButtonPrimary className="btn-qdd-qcm">Créer</ButtonPrimary>
-        </Link>
+        {cookies.user_id && (
+          <Link to="addFlashcards">
+            <ButtonPrimary className="btn-qdd-qcm">Créer</ButtonPrimary>
+          </Link>
+        )}
 
         <Loader
           loading={loading}
