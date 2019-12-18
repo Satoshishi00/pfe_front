@@ -87,7 +87,11 @@ const TakeQcm = () => {
           </p>
           {isResult && (
             <p className="qcm-advice">
-              {question.advice ? checkIfUrlInString(question.advice) : ""}
+              {question.advice ? (
+                <MakeLinkIfUrl theString={question.advice} />
+              ) : (
+                ""
+              )}
             </p>
           )}
           <Loader
