@@ -76,6 +76,28 @@ input:focus {
     span.topbar-item {
         display: none;
     }
+
+    .flashcards-card {
+        height: 10rem !important;
+        width: 80% !important;
+        left: 10% !important;
+    }
+
+    .flashcards-card-item {
+        line-height: 9rem !important;
+    }
+
+    .points-comptor {
+        margin-top: 12rem !important;
+    }
+
+    .points-green {
+        right: 23% !important;
+    }
+
+    .points-red {
+        left: 23% !important;
+    }
 }
 
 

@@ -268,7 +268,7 @@ const Profil = () => {
         </div>
         <div className="profil-item">
           <div className="profil-label">
-            {cookies.user_nb_classes > 1 ? "Classes" : "Classe"}
+            {cookies.user_nb_classes > 1 ? "Classes :" : "Classe :"}
           </div>
           <div className="profil-info">{cookies.user_nb_classes}</div>
         </div>
@@ -276,10 +276,10 @@ const Profil = () => {
           <div className="profil-label">Inscription le :</div>
           <div className="profil-info">{cookies.user_created_at}</div>
         </div>
-        <div className="profil-item">
+        {/* <div className="profil-item">
           <div className="profil-label">Lien d'invitation :</div>
           <i className="far fa-copy"></i>
-        </div>
+        </div> */}
       </div>
     </div>
   );

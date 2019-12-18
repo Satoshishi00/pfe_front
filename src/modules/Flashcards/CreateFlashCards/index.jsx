@@ -148,7 +148,7 @@ const CreateFlashCards = () => {
 
         <div className="btn-add-question-container">
           <ButtonSuccess className="btn-add-question" onClick={e => addCard(e)}>
-            Nouvelle question
+            Nouvelle carte
           </ButtonSuccess>
         </div>
 

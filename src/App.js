@@ -48,7 +48,7 @@ const App = () => (
           <MyRoute path="/missing_pwd" component={Missing}/>
 
           <MyRoute path="/home" component={Home} />
-          <MyRoute path="/profil" component={Profil} />
+          <MyRoute path="/profil" component={Profil} logged/>
 
           <MyRoute path="/qcmList" component={Qcm} />
           <MyRoute path="/qcm/:id?" component={TakeQcm} />

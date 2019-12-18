@@ -9,6 +9,7 @@ import Classe from "./Classe";
 
 const ClassroomList = () => {
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
   const [classes, setClasses] = useState([]);
   const [cookies, setCookie] = useCookies([
     "brainer_id",
@@ -19,7 +20,7 @@ const ClassroomList = () => {
   const buildList = useCallback(
     data => {
       if (typeof data.error !== undefined && data.error) {
-        const error = data.error;
+        setError(data.error);
         console.log(error);
       } else {
         setClasses(data);
@@ -57,7 +58,7 @@ const ClassroomList = () => {
         </div>
       )}
 
-      {loading && <p>Vous ne faites partie d'aucune classe</p>}
+      <p>{error}</p>
 
       <Loader
         loading={loading}

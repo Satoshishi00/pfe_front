@@ -20,7 +20,18 @@ const Inscription = ({ history }) => {
   const [cookies, setCookie] = useCookies([
     "brainer_id",
     "brainer_spepper",
-    "user_id"
+    "user_id",
+    "user_email",
+    "user_username",
+    "user_password",
+    "user_nb_classes",
+    "user_nb_qcm",
+    "user_nb_flash_cards",
+    "user_points",
+    "user_premium",
+    "user_image",
+    "user_update_at",
+    "user_created_at"
   ]);
   const { user, setUser } = useContext(UserContext);
 
@@ -49,22 +60,20 @@ const Inscription = ({ history }) => {
     } else {
       toast.success("Bienvenue " + data.username + " !");
 
-      setUser({
-        ...user,
-        brainer_id: data.id,
-        brainer_pepper: data.pepper,
-        id: data.id,
-        email: data.email,
-        username: data.username,
-        image: data.image,
-        nb_classes: data.nb_classes,
-        nb_flash_cards: data.nb_flash_cards,
-        nb_qcm: data.nb_qcm,
-        points: data.points,
-        premium: data.premium,
-        created_at: data.created_at,
-        updated_at: data.updated_at
-      });
+      setCookie("brainer_id", data.id, { path: "/" });
+      setCookie("brainer_pepper", data.pepper, { path: "/" });
+      setCookie("user_id", data.id, { path: "/" });
+      setCookie("user_email", data.email, { path: "/" });
+      setCookie("user_username", data.username, { path: "/" });
+      setCookie("user_password", data.password, { path: "/" });
+      setCookie("user_nb_classes", data.nb_classes, { path: "/" });
+      setCookie("user_nb_qcm", data.nb_qcm, { path: "/" });
+      setCookie("user_nb_flash_cards", data.nb_flash_cards, { path: "/" });
+      setCookie("user_points", data.points, { path: "/" });
+      setCookie("user_premium", data.premium, { path: "/" });
+      setCookie("user_image", data.image, { path: "/" });
+      setCookie("user_updated_at", data.updated_at, { path: "/" });
+      setCookie("user_created_at", data.created_at, { path: "/" });
       history.push("/home");
     }
   };
@@ -121,11 +130,7 @@ const Inscription = ({ history }) => {
           <span className="fb-color">Facebook</span>
         </ButtonBlank>
         <ButtonBlank className="mg-l">
-          <img
-            src="/assets/images/logo-google.png"
-            alt=""
-            className="logo-google mg-r"
-          />
+          <img src="/logo-google.png" alt="" className="logo-google mg-r" />
           <span>Google</span>
         </ButtonBlank>
       </div>
